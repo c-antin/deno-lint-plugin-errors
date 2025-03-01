@@ -35,3 +35,18 @@ Deno.test("parent > child", () => {
     assertEquals(d.message, "this should fire!");
   }
 });
+
+Deno.test("PropertyDefinition PrivateIdentifier", () => {
+  const diagnostics = Deno.lint.runPlugin(
+    plugin,
+    "main.tsx",
+    "class Test { #private_prop = 1 }",
+  );
+
+  assertEquals(diagnostics.length, 1);
+  {
+    const d = diagnostics[0];
+    assertEquals(d.id, ID);
+    assertEquals(d.message, "PrivateIdentifier");
+  }
+});
