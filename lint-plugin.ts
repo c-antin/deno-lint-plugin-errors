@@ -28,6 +28,39 @@ export default {
               context.report({ node, message: node.key.type });
             }
           },
+          ObjectPattern(node) {
+            for (const prop of node.properties) {
+              switch (prop.type) {
+                case "Property": {
+                  const key = prop.key;
+                  const value = prop.value;
+                  if (value === null) { //todo: value can be null
+                    context.report({ node, message: "value null" });
+                  } else {
+                    switch (value.type) {
+                      case "AssignmentPattern":
+                        if (value.left.type === "Identifier") {
+                          context.report({
+                            node,
+                            message: "AssignmentPattern",
+                          });
+                        }
+                        break;
+                      case "Literal":
+                        //todo: should be assignment pattern
+                        if (key.type === "Identifier") {
+                          context.report({
+                            node,
+                            message: "not AssignmentPattern",
+                          });
+                        }
+                        break;
+                    }
+                  }
+                }
+              }
+            }
+          },
         };
       },
     },

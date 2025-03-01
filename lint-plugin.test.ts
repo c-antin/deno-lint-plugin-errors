@@ -50,3 +50,38 @@ Deno.test("PropertyDefinition PrivateIdentifier", () => {
     assertEquals(d.message, "PrivateIdentifier");
   }
 });
+
+Deno.test("ObjectPattern Property value null", () => {
+  const diagnostics = Deno.lint.runPlugin(
+    plugin,
+    "main.tsx",
+    "const { prop } = {}",
+  );
+
+  assertEquals(diagnostics.length, 1);
+  {
+    const d = diagnostics[0];
+    assertEquals(d.id, ID);
+    assertEquals(d.message, "value null");
+  }
+});
+
+Deno.test("ObjectPattern Property value assignment", () => {
+  const diagnostics = Deno.lint.runPlugin(
+    plugin,
+    "main.tsx",
+    "const { prop = 1 } = {}, { prop: alias = 1 } = {}",
+  );
+
+  assertEquals(diagnostics.length, 2);
+  {
+    const d = diagnostics[0];
+    assertEquals(d.id, ID);
+    assertEquals(d.message, "AssignmentPattern");
+  }
+  {
+    const d = diagnostics[1];
+    assertEquals(d.id, ID);
+    assertEquals(d.message, "AssignmentPattern");
+  }
+});
