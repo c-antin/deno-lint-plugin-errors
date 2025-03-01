@@ -20,3 +20,18 @@ Deno.test("ExportAllDeclaration: exported and source swapped", () => {
     );
   }
 });
+
+Deno.test("parent > child", () => {
+  const diagnostics = Deno.lint.runPlugin(
+    plugin,
+    "main.tsx",
+    "class Test { prop = 1 }",
+  );
+
+  assertEquals(diagnostics.length, 1);
+  {
+    const d = diagnostics[0];
+    assertEquals(d.id, ID);
+    assertEquals(d.message, "this should fire!");
+  }
+});

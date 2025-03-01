@@ -18,6 +18,9 @@ export default {
               });
             }
           },
+          "ClassBody > PropertyDefinition"(node) {
+            context.report({ node, message: "this should fire!" });
+          },
         };
       },
     },
