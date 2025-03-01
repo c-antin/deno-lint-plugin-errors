@@ -38,6 +38,18 @@ export default {
                     context.report({ node, message: "value null" });
                   } else {
                     switch (value.type) {
+                      case "Identifier":
+                        //todo: see test: "ObjectPattern Property value should be key"
+                        if (
+                          JSON.stringify(key.range) ===
+                            JSON.stringify(value.range)
+                        ) {
+                          context.report({
+                            node,
+                            message: "value is same as key",
+                          });
+                        }
+                        break;
                       case "AssignmentPattern":
                         if (value.left.type === "Identifier") {
                           context.report({
@@ -47,7 +59,7 @@ export default {
                         }
                         break;
                       case "Literal":
-                        //todo: should be assignment pattern
+                        //todo: should be assignment pattern, see test "ObjectPattern Property value assignment"
                         if (key.type === "Identifier") {
                           context.report({
                             node,

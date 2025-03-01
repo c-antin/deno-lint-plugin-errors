@@ -85,3 +85,18 @@ Deno.test("ObjectPattern Property value assignment", () => {
     assertEquals(d.message, "AssignmentPattern");
   }
 });
+
+Deno.test("ObjectPattern Property value should be key", () => {
+  const diagnostics = Deno.lint.runPlugin(
+    plugin,
+    "main.tsx",
+    "function test({ param }) { }",
+  );
+
+  assertEquals(diagnostics.length, 1);
+  {
+    const d = diagnostics[0];
+    assertEquals(d.id, ID);
+    assertEquals(d.message, "value is same as key");
+  }
+});
