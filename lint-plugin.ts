@@ -17,7 +17,7 @@ export default {
             }
           },
           "ClassBody > PropertyDefinition"(node) {
-            //todo: parent child relation is not working, maybe it should be "ClassBody.body > PropertyDefinition"?
+            //done: parent child relation is not working, maybe it should be "ClassBody.body > PropertyDefinition"?
             context.report({ node, message: "this should fire!" });
           },
           PropertyDefinition(node) {
