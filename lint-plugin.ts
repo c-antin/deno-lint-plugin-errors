@@ -18,7 +18,9 @@ export default {
           },
           "ClassBody > PropertyDefinition"(node) {
             //done: parent child relation is not working, maybe it should be "ClassBody.body > PropertyDefinition"?
-            context.report({ node, message: "this should fire!" });
+            if (node.key.type === "Identifier") {
+              context.report({ node, message: "this should fire!" });
+            }
           },
           PropertyDefinition(node) {
             if (node.key.type === "PrivateIdentifier") {
