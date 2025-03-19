@@ -23,8 +23,8 @@ export default {
             context.report({ node, message: "this should fire!" });
           },
           PropertyDefinition(node) {
-            if (node.key.type !== "Identifier") {
-              //todo: PrivateIdentifier is missing from the type definition
+            if (node.key.type === "PrivateIdentifier") {
+              //done: PrivateIdentifier is missing from the type definition
               context.report({ node, message: node.key.type });
             }
           },
