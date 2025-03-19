@@ -5,11 +5,9 @@ export default {
       create(context) {
         return {
           ExportAllDeclaration(node) {
-            //todo: exported and source are swapped
-            const source = node.exported as unknown as Deno.lint.StringLiteral;
-            const exported = node.source as unknown as
-              | Deno.lint.Identifier
-              | null;
+            //done: exported and source are swapped
+            const source = node.source;
+            const exported = node.exported;
             if (exported?.type === "Identifier") {
               context.report({
                 node,
