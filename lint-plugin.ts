@@ -39,7 +39,7 @@ export default {
                   } else {
                     switch (value.type) {
                       case "Identifier":
-                        //todo: see test: "ObjectPattern Property value should be key"
+                        //done: see test: "ObjectPattern Property value should be key"
                         if (
                           JSON.stringify(key.range) ===
                             JSON.stringify(value.range)
@@ -59,7 +59,7 @@ export default {
                         }
                         break;
                       case "Literal":
-                        //todo: should be assignment pattern, see test "ObjectPattern Property value assignment"
+                        //done: should be assignment pattern, see test "ObjectPattern Property value assignment"
                         if (key.type === "Identifier") {
                           context.report({
                             node,
